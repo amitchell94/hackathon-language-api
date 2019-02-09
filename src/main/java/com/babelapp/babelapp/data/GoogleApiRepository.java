@@ -1,6 +1,6 @@
 package com.babelapp.babelapp.data;
 
-import com.babelapp.babelapp.presentation.TranslationErrorException;
+import com.babelapp.babelapp.logic.exceptions.TranslationErrorException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,30 +34,31 @@ public class GoogleApiRepository {
         this.restTemplate = restTemplate;
     }
 
-    public String getLanguage(String text) {
-        String language = "";
-        text = text.replace("\\s","%20");
-        try {
-        URI uri = new DefaultUriBuilderFactory()
-                .uriString(DETECT_BASE_URL)
-                .queryParam(APPID, API_KEY)
-                .queryParam(QUERY, text)
-                .build();
-
-
-            ResponseEntity<String> response = restTemplate.getForEntity(uri, String.class);
-
-            ObjectMapper mapper = new ObjectMapper();
-            JsonNode root = mapper.readTree(response.getBody());
-            language = root.findPath("data").findPath("detections").get(0).findPath("language").asText();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return language;
-    }
+//    public String getLanguage(String text) {
+//        String language = "";
+//        text = text.replace("\\s","%20");
+//        try {
+//        URI uri = new DefaultUriBuilderFactory()
+//                .uriString(DETECT_BASE_URL)
+//                .queryParam(APPID, API_KEY)
+//                .queryParam(QUERY, text)
+//                .build();
+//
+//
+//            ResponseEntity<String> response = restTemplate.getForEntity(uri, String.class);
+//
+//            ObjectMapper mapper = new ObjectMapper();
+//            JsonNode root = mapper.readTree(response.getBody());
+//            language = root.findPath("data").findPath("detections").get(0).findPath("language").asText();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return language;
+//    }
 
     public String translateText(String text, String baseLanguage, String targetLanguage) throws TranslationErrorException {
         String translation = "";
+        text = text.replace("\\s","%20");
         text = text.replace("\\s","%20");
         try {
             URI uri = new DefaultUriBuilderFactory()
@@ -76,7 +77,7 @@ public class GoogleApiRepository {
             JsonNode root = mapper.readTree(response.getBody());
             translation = root.findPath("data").findPath("translations").get(0).findPath("translatedText").asText();
         } catch (Exception e) {
-            throw new TranslationErrorException();
+            throw new TranslationErrorException(e.getMessage());
         }
 
         return translation;

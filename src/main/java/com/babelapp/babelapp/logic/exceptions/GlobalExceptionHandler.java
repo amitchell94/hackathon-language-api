@@ -1,6 +1,5 @@
-package com.babelapp.babelapp.presentation;
+package com.babelapp.babelapp.logic.exceptions;
 
-import com.babelapp.babelapp.logic.InvalidSourceLanguageException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -18,8 +17,15 @@ public class GlobalExceptionHandler {
 
     @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Invalid Source Language")
     @ExceptionHandler(InvalidSourceLanguageException.class)
-    public void handlesInvalidTokenException(HttpServletRequest request, Exception exception) {
+    public void handlesInvalidSourceLanguageException(HttpServletRequest request, Exception exception) {
         logger.info("Invalid Source Language Exception Occurred:: URL=" + request.getRequestURL());
+        logger.info("the exception was : =" + exception.getMessage());
+    }
+
+    @ResponseStatus(value = HttpStatus.BAD_GATEWAY, reason = "Unable to translate")
+    @ExceptionHandler(TranslationErrorException.class)
+    public void handlesTranslationErrorException(HttpServletRequest request, Exception exception) {
+        logger.info("Unable to Translate Exception Occurred:: URL=" + request.getRequestURL());
         logger.info("the exception was : =" + exception.getMessage());
     }
 

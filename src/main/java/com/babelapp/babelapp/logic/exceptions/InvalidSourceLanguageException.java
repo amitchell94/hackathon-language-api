@@ -1,4 +1,4 @@
-package com.babelapp.babelapp.logic;
+package com.babelapp.babelapp.logic.exceptions;
 
 public class InvalidSourceLanguageException extends RuntimeException {
 
