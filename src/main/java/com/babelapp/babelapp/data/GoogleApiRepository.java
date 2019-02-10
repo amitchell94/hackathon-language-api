@@ -25,7 +25,7 @@ public class GoogleApiRepository {
     private String TRANSLATE_BASE_URL;
     @Value("key")
     private String APPID;
-    @Value("AIzaSyAnx6jVTG_aeIk5nTG1Soe1h35F9OZoPaM")
+    @Value("blah")
     private String API_KEY;
     private RestTemplate restTemplate;
 
