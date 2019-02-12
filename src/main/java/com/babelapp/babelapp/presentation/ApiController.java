@@ -13,7 +13,7 @@ public class ApiController {
     TranslateService translateService;
 
     @PostMapping("/translate")
-        public String translate (@RequestParam(name = "text") String text, @RequestParam(name = "sourcelanguage") String sourceLanguage) {
+        public String translate (@RequestParam(name = "sourcelanguage") String sourceLanguage, @RequestBody String text) {
         return translateService.translateText(text, sourceLanguage);
     }
 }

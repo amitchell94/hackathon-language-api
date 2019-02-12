@@ -59,7 +59,6 @@ public class GoogleApiRepository {
     public String translateText(String text, String baseLanguage, String targetLanguage) throws TranslationErrorException {
         String translation = "";
         text = text.replace("\\s","%20");
-        text = text.replace("\\s","%20");
         try {
             URI uri = new DefaultUriBuilderFactory()
                     .uriString(TRANSLATE_BASE_URL)
