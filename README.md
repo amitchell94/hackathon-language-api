@@ -19,7 +19,6 @@ You will then need to change the value of API_KEY to your API key in the [Google
 
 In order to execute this program you will need to install the following:
 * Java JDK
-* Google Translate API
 * Gradle
 
 ## Usage
