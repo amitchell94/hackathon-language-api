@@ -12,6 +12,7 @@ public class ApiController {
     @Resource
     TranslateService translateService;
 
+    @CrossOrigin
     @PostMapping("/translate")
         public String translate (@RequestParam(name = "sourcelanguage") String sourceLanguage, @RequestBody String text) {
         return translateService.translateText(text, sourceLanguage);
